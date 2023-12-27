@@ -28,12 +28,24 @@ Route::view('/tasks/create', 'create')->name('tasks.create'); //renderizzo solo 
 
 Route::get('/tasks/{id}', function ($id) {
 
-    return view('show', ['task' => Task::findOrFail($id)]); //if does not find nythinf return a 404 page
+    return view('show', ['task' => Task::findOrFail($id)]); //if does not find anything return a 404 page
 
 })->name('tasks.show');
 
 route::post('/tasks', function (Request $request) { // Request give us access to all the data sent
-    dd($request->all());
+    $data = $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'long_description' => 'reuired',
+    ]);
+
+    $task = new Task;
+    $task->name = $data['name'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
+
+    $task->save();
+
 })->name('tasks.store');
 
 
