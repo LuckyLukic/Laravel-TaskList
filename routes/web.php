@@ -26,6 +26,12 @@ Route::get('/tasks', function () {
 
 Route::view('/tasks/create', 'create')->name('tasks.create'); //renderizzo solo la pagina, non applico nessun metodo CRUD
 
+Route::get('/tasks/{id}/edit', function ($id) {
+
+    return view('edit', ['task' => Task::findOrFail($id)]); //if does not find anything return a 404 page
+
+})->name('tasks.edit');
+
 Route::get('/tasks/{id}', function ($id) {
 
     return view('show', ['task' => Task::findOrFail($id)]); //if does not find anything return a 404 page
@@ -49,6 +55,24 @@ route::post('/tasks', function (Request $request) { // Request give us access to
     return redirect()->route('tasks.show', ['id' => $task->id])->with('success', 'Task created successfully'); //this flash message will be available only for that specific session
 
 })->name('tasks.store');
+
+route::put('/tasks/{id}', function ($id, Request $request) { // Request give us access to all the data sent
+    $data = $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'long_description' => 'required',
+    ]);
+
+    $task = Task::findOrFail($id);
+    $task->title = $data['title'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
+
+    $task->save();
+
+    return redirect()->route('tasks.show', ['id' => $task->id])->with('success', 'Task updated successfully');
+
+})->name('tasks.update');
 
 
 
