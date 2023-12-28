@@ -46,7 +46,7 @@ route::post('/tasks', function (Request $request) { // Request give us access to
 
     $task->save();
 
-    return redirect()->route('tasks.show', ['id' => $task->id]);
+    return redirect()->route('tasks.show', ['id' => $task->id])->with('success', 'Task created successfully'); //this flash message will be available only for that specific session
 
 })->name('tasks.store');
 
