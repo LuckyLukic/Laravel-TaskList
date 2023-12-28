@@ -36,15 +36,17 @@ route::post('/tasks', function (Request $request) { // Request give us access to
     $data = $request->validate([
         'title' => 'required|max:255',
         'description' => 'required',
-        'long_description' => 'reuired',
+        'long_description' => 'required',
     ]);
 
     $task = new Task;
-    $task->name = $data['name'];
+    $task->title = $data['title'];
     $task->description = $data['description'];
     $task->long_description = $data['long_description'];
 
     $task->save();
+
+    return redirect()->route('tasks.show', ['id' => $task->id]);
 
 })->name('tasks.store');
 
