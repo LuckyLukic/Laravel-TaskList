@@ -3,7 +3,7 @@
 @section('title', 'Edit Task')
 
 @Section('content')
-    <form action="{{ route('tasks.update', ['id' => $task->id]) }}" method="POST">
+    <form action="{{ route('tasks.update', ['task' => $task->id]) }}" method="POST">
         @csrf {{-- to protect the form from external third party through the token generated --}}
         @method('PUT') {{-- method spoofing: Laravel knows that has to redirect to a route that has PUT method in this case --}}
         <div>

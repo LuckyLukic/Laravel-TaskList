@@ -8,7 +8,7 @@
 
         <div>
             <label for="title">Title</label>
-            <input type="text" name="title" id="title">
+            <input type="text" name="title" id="title" value="{{ old('title') }}"> {{-- value="{{ old('title') }}": to keep old value in case of bad request --}}
         </div>
         @error('title')
             <p>{{ $message }}</p>
@@ -16,7 +16,7 @@
 
         <div>
             <label for="description">Description</label>
-            <textarea type="text" name="description" id="description" rows=5></textarea>
+            <textarea type="text" name="description" id="description" rows=5 value="{{ old('description') }}"></textarea>
         </div>
         @error('description')
             <p>{{ $message }}</p>
@@ -24,7 +24,7 @@
 
         <div>
             <label for="long_description">Long description</label>
-            <textarea type="text" name="long_description" id="long_description" rows=10></textarea>
+            <textarea type="text" name="long_description" id="long_description" rows=10 value="{{ old('long_description') }}"></textarea>
         </div>
         @error('long_description')
             <p>{{ $message }}</p>
