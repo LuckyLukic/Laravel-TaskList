@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/tasks', function () {
-    return view('index', ['tasks' => Task::latest()->get()]); // latest() returns an instance of the query builder, with an SQL ORDER BY clause applied.
+    return view('index', ['tasks' => Task::latest()->paginate()]); // latest() returns an instance of the query builder, with an SQL ORDER BY clause applied.
 })->name('tasks.index');
 
 Route::view('/tasks/create', 'create')->name('tasks.create'); //renderizzo solo la pagina, non applico nessun metodo CRUD
