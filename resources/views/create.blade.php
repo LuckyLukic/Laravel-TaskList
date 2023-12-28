@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Create Task')
+{{-- @section('title', 'Create Task') --}}
 
 @Section('content')
-    <form action="{{ route('tasks.store') }}" method="POST">
+    @include('form')
+
+    {{-- <form action="{{ route('tasks.store') }}" method="POST">
         @csrf {{-- to protect the form from external third party through the token generated --}}
 
-        <div>
+    {{-- <div>
             <label for="title">Title</label>
             <input type="text" name="title" id="title" value="{{ old('title') }}"> {{-- value="{{ old('title') }}": to keep old value in case of bad request --}}
-        </div>
+    {{-- </div>
         @error('title')
             <p>{{ $message }}</p>
         @enderror
@@ -30,5 +32,5 @@
             <p>{{ $message }}</p>
         @enderror
         <button type="submit">Add Task</button>
-    </form>
+    </form> --}}
 @endsection
