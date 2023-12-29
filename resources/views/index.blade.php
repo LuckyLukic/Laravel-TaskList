@@ -3,21 +3,22 @@
 @section('title', 'The list of tasks')
 
 @section('content')
-    <div>
 
+
+    <nav class="mb-4">
+        <a href="{{ route('tasks.create') }}" class="font-medium text-gray-700 underline decoration-pink-500">Add Task</a>
+    </nav>
+    @forelse ($tasks as $task)
         <div>
-            <a href="{{ route('tasks.create') }}">Add Task</a>
+            {{-- @class allaws to have an Array of classed always displayed and we can add conditions adding a value to the class. the value would be the condition --}}
+            <a href="{{ route('tasks.show', ['task' => $task->id]) }}" @class(['line-through' => $task->completed])> {{ $task->title }}</a>
         </div>
-        @forelse ($tasks as $task)
-            <div>
-                <a href="{{ route('tasks.show', ['task' => $task->id]) }}"> {{ $task->title }}</a>
-            </div>
-        @empty
-            <div>there are no tasks</div>
-        @endforelse
+    @empty
+        <div>there are no tasks</div>
+    @endforelse
 
-        @if ($tasks->count())
-            <nav>{{ $tasks->links() }}</nav>
-        @endif
-    </div>
+    @if ($tasks->count())
+        <nav class="mt-4">{{ $tasks->links() }}</nav>
+    @endif
+
 @endsection
